@@ -757,10 +757,16 @@ const main = $('main');
 
 // ── Dark mode ─────────────────────────────────────────────
 function toggleTheme() {
-  const dark = !document.documentElement.getAttribute('data-theme') === 'dark';
-  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
-  $('themeToggle').textContent = dark ? '☀️' : '🌙';
-  localStorage.setItem('theme', dark ? 'dark' : 'light');
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+    $('themeToggle').textContent = '🌙';
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+    $('themeToggle').textContent = '☀️';
+  }
 }
 $('themeToggle').addEventListener('click', toggleTheme);
 
